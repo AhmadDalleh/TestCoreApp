@@ -16,5 +16,9 @@ namespace TestCoreApp.Controllers
             IEnumerable<Item> itemsList = _context.Items.ToList();
             return View(itemsList);
         }
+        public IActionResult New() { 
+
+        return View();
+        }
     }
 }
