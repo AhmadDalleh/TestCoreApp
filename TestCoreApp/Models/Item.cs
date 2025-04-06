@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Identity.Client;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace TestCoreApp.Models
@@ -17,5 +18,9 @@ namespace TestCoreApp.Models
         public decimal Price { get; set; }
 
         public DateTime CreateDate {  get; set; } = DateTime.Now;
+
+        [Required]
+        [DisplayName("Category")]
+        public int CategoryId { get; set; }
     }
 }

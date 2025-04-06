@@ -37,6 +37,7 @@ namespace TestCoreApp.Controllers
             {
                 _context.Items.Add(item);
                 _context.SaveChanges();
+                TempData["successData"] = "Item has been added successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -44,6 +45,7 @@ namespace TestCoreApp.Controllers
                 return View(item);
             }
         }
+
         //GET
         public IActionResult Edit(int? Id)
         {
@@ -57,7 +59,7 @@ namespace TestCoreApp.Controllers
                 return NotFound();
             }
 
-            return View();
+            return View(item);
         }
 
 
@@ -74,6 +76,7 @@ namespace TestCoreApp.Controllers
             {
                 _context.Items.Update(item);
                 _context.SaveChanges();
+                TempData["successData"] = "Item has been edited successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -82,7 +85,36 @@ namespace TestCoreApp.Controllers
             }
         }
 
+        //GET
+        public IActionResult Delete(int? Id)
+        {
+            if (Id == null || Id == 0)
+            {
+                return NotFound();
+            }
+            var item = _context.Items.Find(Id);
+            if (item == null)
+            {
+                return NotFound();
+            }
 
+            return View(item);
+        }
 
+        //POST
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteItem(int? Id)
+        {
+            var item = _context.Items.Find(Id);
+            if(item == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(item);
+            _context.SaveChanges();
+            TempData["successData"] = "Item has been Deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }

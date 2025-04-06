@@ -6,10 +6,9 @@
     <div class="border p-3 mt-4">
         <div calss="row pb-2">
             <h2 class="text-primary">Edit Item </h2>
-            <hr />
+            <hr/>
         </div>
-        <div asp-validation-summary="All">
-        </div>
+        <div asp-validation-summary="All"></div>
         <div class="mb-3">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />
@@ -19,8 +18,20 @@
             <label asp-for="Price"></label>
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" class="form-control">
+                <option value="0">Select Category</option>
+                <option value="1">Computers</option>
+                <option value="2">Mobiles</option>
+                <option value="3">Eclectic machines</option>
+            </select>
+            <span asp-validation-for="Price" class="text-danger"></span>
 
         </div>
+        <br />
+        <hr />
         <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
         <a asp-action="Index" asp-controller="Items" class="btn btn-secondary" style="width:150px">
             back to items
