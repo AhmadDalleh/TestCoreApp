@@ -15,7 +15,15 @@ namespace TestCoreApp.Data
             modelBuilder.Entity<Item>()
                 .Property(i => i.Price)
                 .HasColumnType("float");
+            modelBuilder.Entity<Category>().HasData(
+                new Category() { Id = 1, Name = "Select Category" },
+                new Category() { Id = 2, Name = "Computers" },
+                new Category() { Id = 3, Name = "Mobiles" },
+                new Category() { Id = 4, Name = "Electric Machines"}
+                );
+    ;
         }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
