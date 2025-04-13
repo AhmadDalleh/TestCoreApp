@@ -25,5 +25,6 @@ namespace TestCoreApp.Data
         }
         public DbSet<Item> Items { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Employees> Employees { get; set; }
     }
 }
