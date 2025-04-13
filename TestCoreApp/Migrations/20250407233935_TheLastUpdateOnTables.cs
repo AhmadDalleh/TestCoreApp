@@ -7,11 +7,18 @@
 namespace TestCoreApp.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateCategoryTable : Migration
+    public partial class TheLastUpdateOnTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "CategoryId",
+                table: "Items",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -62,6 +69,10 @@ namespace TestCoreApp.Migrations
 
             migrationBuilder.DropIndex(
                 name: "IX_Items_CategoryId",
+                table: "Items");
+
+            migrationBuilder.DropColumn(
+                name: "CategoryId",
                 table: "Items");
         }
     }

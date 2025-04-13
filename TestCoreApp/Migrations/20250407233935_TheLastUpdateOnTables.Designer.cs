@@ -12,8 +12,8 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250406133403_CreateCategoryTable")]
-    partial class CreateCategoryTable
+    [Migration("20250407233935_TheLastUpdateOnTables")]
+    partial class TheLastUpdateOnTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
