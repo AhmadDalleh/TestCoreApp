@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/TestCoreApp/Migrations/20250414201346_SaveAllChanges.cs
+/TestCoreApp/Migrations/20250414201346_SaveAllChanges.Designer.cs
