@@ -12,20 +12,59 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250407233935_TheLastUpdateOnTables")]
-    partial class TheLastUpdateOnTables
+    [Migration("20250413081530_DataBaseFixing")]
+    partial class DataBaseFixing
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("TestCoreApp.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Name = "Select Category"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Name = "Computers"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Name = "Mobiles"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Name = "Electric Machines"
+                        });
+                });
+
+            modelBuilder.Entity("TestCoreApp.Models.Employees", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,35 +72,26 @@ namespace TestCoreApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<int?>("EmployeeAge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmployeeEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeePhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("EmployeeSalary")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Select Category"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Computers"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Mobiles"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Electric Machines"
-                        });
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("TestCoreApp.Models.Item", b =>
@@ -82,8 +112,8 @@ namespace TestCoreApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

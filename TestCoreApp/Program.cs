@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using TestCoreApp.Data;
+using TestCoreApp.Repository.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("MyConnection")
     )
 );
+
+builder.Services.AddTransient(typeof(IRepository<>), typeof(MainRepository<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,10 +29,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "area",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

@@ -12,19 +12,16 @@ namespace TestCoreApp.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Item>()
-                .Property(i => i.Price)
-                .HasColumnType("float");
             modelBuilder.Entity<Category>().HasData(
-                new Category() { Id = 1, Name = "Select Category" },
-                new Category() { Id = 2, Name = "Computers" },
-                new Category() { Id = 3, Name = "Mobiles" },
-                new Category() { Id = 4, Name = "Electric Machines"}
+                new Category() { CategoryId = 1, Name = "Select Category" },
+                new Category() { CategoryId = 2, Name = "Computers" },
+                new Category() { CategoryId = 3, Name = "Mobiles" },
+                new Category() { CategoryId = 4, Name = "Electric Machines"}
                 );
     ;
         }
-        public DbSet<Item> Items { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Item> Items { get; set; }
         public DbSet<Employees> Employees { get; set; }
     }
 }

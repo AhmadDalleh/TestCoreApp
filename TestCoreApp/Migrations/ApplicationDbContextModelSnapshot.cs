@@ -17,46 +17,46 @@ namespace TestCoreApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("TestCoreApp.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            CategoryId = 1,
                             Name = "Select Category"
                         },
                         new
                         {
-                            Id = 2,
+                            CategoryId = 2,
                             Name = "Computers"
                         },
                         new
                         {
-                            Id = 3,
+                            CategoryId = 3,
                             Name = "Mobiles"
                         },
                         new
                         {
-                            Id = 4,
+                            CategoryId = 4,
                             Name = "Electric Machines"
                         });
                 });
@@ -109,8 +109,8 @@ namespace TestCoreApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

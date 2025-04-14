@@ -21,9 +21,9 @@ namespace TestCoreApp.Models
         public DateTime CreateDate {  get; set; } = DateTime.Now;
 
         [Required]
-        [DisplayName("Category")]
-        [ForeignKey("Category")]
+        [DisplayName("Category ID")]
         public int CategoryId { get; set; }
+        [Required]
         public Category? Category { get; set; }
     }
 }
