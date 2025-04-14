@@ -5,8 +5,12 @@ namespace TestCoreApp.Models
 {
     public class Category
     {
+        public Category()
+        {
+            Items = new HashSet<Item>();
+        }
         [Key]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         [Required]
         public string? Name { get; set; }
 

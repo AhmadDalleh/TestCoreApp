@@ -12,8 +12,8 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250413081530_DataBaseFixing")]
-    partial class DataBaseFixing
+    [Migration("20250414125833_UpdateOnDeleteForCategory")]
+    partial class UpdateOnDeleteForCategory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,46 +25,7 @@ namespace TestCoreApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TestCoreApp.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            Name = "Select Category"
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            Name = "Computers"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            Name = "Mobiles"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            Name = "Electric Machines"
-                        });
-                });
-
-            modelBuilder.Entity("TestCoreApp.Models.Employees", b =>
+            modelBuilder.Entity("TestCoreApp.Areas.Employees.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,26 +33,68 @@ namespace TestCoreApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EmployeeAge")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("EmployeeEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeName")
+                    b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("EmployeePhone")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal?>("EmployeeSalary")
+                    b.Property<string>("Phone")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal?>("Salary")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("TestCoreApp.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Select Category"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Computers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mobiles"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Electric machines"
+                        });
                 });
 
             modelBuilder.Entity("TestCoreApp.Models.Item", b =>
@@ -105,7 +108,7 @@ namespace TestCoreApp.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

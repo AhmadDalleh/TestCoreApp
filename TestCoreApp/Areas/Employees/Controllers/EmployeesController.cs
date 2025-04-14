@@ -23,7 +23,7 @@ namespace TestCoreApp.Areas.Employees.Controllers
         // GET: Employees/Employees
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employee.ToListAsync());
+            return View(await _context.Employees.ToListAsync());
         }
 
         // GET: Employees/Employees/Details/5
@@ -34,7 +34,7 @@ namespace TestCoreApp.Areas.Employees.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee
+            var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
@@ -74,7 +74,7 @@ namespace TestCoreApp.Areas.Employees.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace TestCoreApp.Areas.Employees.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee
+            var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
@@ -140,10 +140,10 @@ namespace TestCoreApp.Areas.Employees.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee != null)
             {
-                _context.Employee.Remove(employee);
+                _context.Employees.Remove(employee);
             }
 
             await _context.SaveChangesAsync();
@@ -152,7 +152,7 @@ namespace TestCoreApp.Areas.Employees.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employee.Any(e => e.Id == id);
+            return _context.Employees.Any(e => e.Id == id);
         }
     }
 }

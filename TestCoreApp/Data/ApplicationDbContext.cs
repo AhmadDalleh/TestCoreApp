@@ -11,21 +11,22 @@ namespace TestCoreApp.Data
         {
             
         }
+        public DbSet<Item> Items { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
-                new Category() { CategoryId = 1, Name = "Select Category" },
-                new Category() { CategoryId = 2, Name = "Computers" },
-                new Category() { CategoryId = 3, Name = "Mobiles" },
-                new Category() { CategoryId = 4, Name = "Electric Machines"}
+                  new Category() { Id = 1, Name = "Select Category" },
+                  new Category() { Id = 2, Name = "Computers" },
+                  new Category() { Id = 3, Name = "Mobiles" },
+                  new Category() { Id = 4, Name = "Electric machines" }
                 );
-    ;
-        }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public  DbSet<Employee> Employees { get; set; }
 
-        public DbSet<TestCoreApp.Areas.Employees.Models.Employee> Employee { get; set; } = default!;
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
