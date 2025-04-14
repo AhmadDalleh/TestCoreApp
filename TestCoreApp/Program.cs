@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using TestCoreApp.Data;
+using TestCoreApp.Repository;
 using TestCoreApp.Repository.Base;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("MyConnection")
     )
 );
-builder.Services.AddTransient(typeof(IRepository<>), typeof(MainRepository<>));
+//builder.Services.AddTransient(typeof(IRepository<>), typeof(MainRepository<>));
+builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

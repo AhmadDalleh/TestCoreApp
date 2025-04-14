@@ -7,13 +7,14 @@ namespace TestCoreApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        public CategoriesController(IRepository<Category> repository)
+        public CategoriesController(IUnitOfWork _myUnit)
         {
-            _repository = repository;
+            //_repository = repository;
+            myUnit = _myUnit;
         }
 
-        private IRepository<Category> _repository;
-
+        //private IRepository<Category> _repository;
+        private readonly IUnitOfWork myUnit;
         //public IActionResult Index()
         //{
         //    return View(_repository.FindAll());
@@ -21,9 +22,9 @@ namespace TestCoreApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var oneCat = _repository.SelectOne(x => x.Name == "Computers");
+            var oneCat = myUnit.categories.SelectOne(x => x.Name == "Computers");
 
-            var allCat = await _repository.FindAllAsync("Items");
+            var allCat = await myUnit.categories.FindAllAsync("Items");
 
             return View(allCat);
         }
@@ -42,7 +43,7 @@ namespace TestCoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.AddOne(category);
+                myUnit.categories.AddOne(category);
                 return RedirectToAction("Index");
             }
             else
@@ -58,7 +59,7 @@ namespace TestCoreApp.Controllers
             {
                 return NotFound();
             }
-            var category = _repository.FindById(Id.Value);
+            var category = myUnit.categories.FindById(Id.Value);
             if (category == null)
             {
                 return NotFound();
@@ -73,7 +74,7 @@ namespace TestCoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.UpdateOne(category);
+                myUnit.categories.UpdateOne(category);
                 return RedirectToAction("Index");
             }
             else
@@ -89,7 +90,7 @@ namespace TestCoreApp.Controllers
             {
                 return NotFound();
             }
-            var category = _repository.FindById(Id.Value);
+            var category = myUnit.categories.FindById(Id.Value);
             if (category == null)
             {
                 return NotFound();
@@ -102,7 +103,7 @@ namespace TestCoreApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Category category)
         {
-            _repository.DeleteOne(category);
+            myUnit.categories.DeleteOne(category);
             TempData["successData"] = "category has been deleted successfully";
             return RedirectToAction("Index");
         }

@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TestCoreApp.Data;
+using TestCoreApp.Repository.Base;
 
-namespace TestCoreApp.Repository.Base
+namespace TestCoreApp.Repository
 {
     public class MainRepository<T> : IRepository<T> where T : class
     {
