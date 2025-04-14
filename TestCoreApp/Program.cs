@@ -11,7 +11,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("MyConnection")
     )
 );
-
 builder.Services.AddTransient(typeof(IRepository<>), typeof(MainRepository<>));
 var app = builder.Build();
 
@@ -31,8 +30,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
 
 
 app.Run();

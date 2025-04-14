@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestCoreApp.Data;
 
@@ -11,9 +12,11 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250411230843_EmpoleyeeTable")]
+    partial class EmpoleyeeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,71 +60,41 @@ namespace TestCoreApp.Migrations
 
             modelBuilder.Entity("TestCoreApp.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            Name = "Select Category"
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            Name = "Computers"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            Name = "Mobiles"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            Name = "Electric Machines"
-                        });
-                });
-
-            modelBuilder.Entity("TestCoreApp.Models.Employees", b =>
-                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EmployeeAge")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeePhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("EmployeeSalary")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Select Category"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Computers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mobiles"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Electric Machines"
+                        });
                 });
 
             modelBuilder.Entity("TestCoreApp.Models.Item", b =>
@@ -142,8 +115,8 @@ namespace TestCoreApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

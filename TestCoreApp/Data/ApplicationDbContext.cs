@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestCoreApp.Models;
+using TestCoreApp.Areas.Employees.Models;
 
 namespace TestCoreApp.Data
 {
@@ -22,6 +23,9 @@ namespace TestCoreApp.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Employees> Employees { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public  DbSet<Employee> Employees { get; set; }
+
+        public DbSet<TestCoreApp.Areas.Employees.Models.Employee> Employee { get; set; } = default!;
     }
 }

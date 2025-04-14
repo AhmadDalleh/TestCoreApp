@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TestCoreApp.Repository.Base;
 using TestCoreApp.Models;
+using TestCoreApp.Repository.Base;
+
 namespace TestCoreApp.Controllers
 {
     public class CategoriesController : Controller
@@ -11,9 +12,18 @@ namespace TestCoreApp.Controllers
         }
 
         private IRepository<Category> _repository;
-        public IActionResult Index()
+
+        //public IActionResult Index()
+        //{
+        //    return View(_repository.FindAll());
+        //}
+
+        public async Task<IActionResult> Index()
         {
-            return View(_repository.FindAll());
+            var oneCat = _repository.SelectOne(x => x.Name == "Computers");
+            var allCat = await _repository.FindAllAsync("Items");
+            return View(allCat);
         }
+
     }
 }
