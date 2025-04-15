@@ -12,7 +12,7 @@ namespace TestCoreApp.Repository
             _context = context;
             categories = new MainRepository<Category>(_context);
             items = new MainRepository<Item>(_context);
-            employees = new MainRepository<Employee>(_context);
+            employees = new EmployeeRepository(_context);
 
         }
         private readonly ApplicationDbContext _context;
@@ -21,7 +21,7 @@ namespace TestCoreApp.Repository
 
         public IRepository<Item> items { get; private set; }
 
-        public IRepository<Employee> employees { get; private set; }
+        public IEmployeeRepository employees { get; private set; }
 
         public int CommitChanges()
         {
