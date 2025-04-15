@@ -21,7 +21,11 @@ namespace TestCoreApp.Models
         [DisplayName("Category")]
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
+        
+        public string? ImagePath {  get; set; }
 
+        [NotMapped]
+        public IFormFile ClientFile { get; set; }
         public Category? Category { get; set; }
     }
 }

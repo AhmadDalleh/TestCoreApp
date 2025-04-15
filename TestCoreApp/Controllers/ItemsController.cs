@@ -2,18 +2,21 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
 using TestCoreApp.Data;
 using TestCoreApp.Models;
-
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 namespace TestCoreApp.Controllers
 {
     public class ItemsController : Controller
     {
-        public ItemsController(ApplicationDbContext db)
+        public ItemsController(ApplicationDbContext db , IHostingEnvironment host)
         {
             _db = db;
+            _host = host;
         }
-
+        private readonly IHostingEnvironment _host;
         private readonly ApplicationDbContext _db;
 
         public IActionResult Index()
@@ -40,6 +43,15 @@ namespace TestCoreApp.Controllers
             }
             if (ModelState.IsValid)
             {
+                string fileName = string.Empty;
+                if (item.ClientFile != null)
+                {
+                    string myUpload = Path.Combine(_host.WebRootPath, "images");
+                    fileName = item.ClientFile.FileName;
+                    string fullPath = Path.Combine(myUpload, fileName);
+                    item.ClientFile.CopyTo(new FileStream(fullPath,FileMode.Create));
+                    item.ImagePath = fileName;
+                }
                 _db.Items.Add(item);
                 _db.SaveChanges();
                 TempData["successData"] = "Item has been added successfully";
