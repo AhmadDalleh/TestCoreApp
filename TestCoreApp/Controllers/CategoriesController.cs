@@ -15,6 +15,7 @@ namespace TestCoreApp.Controllers
 
         //private IRepository<Category> _repository;
         private readonly IUnitOfWork myUnit;
+
         //public IActionResult Index()
         //{
         //    return View(_repository.FindAll());
@@ -43,6 +44,12 @@ namespace TestCoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (category.ClientFile != null)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    category.ClientFile.CopyTo(stream);
+                    category.DbImage= stream.ToArray();
+                }
                 myUnit.categories.AddOne(category);
                 return RedirectToAction("Index");
             }

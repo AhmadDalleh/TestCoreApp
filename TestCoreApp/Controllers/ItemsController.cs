@@ -4,18 +4,20 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using TestCoreApp.Data;
 using TestCoreApp.Models;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace TestCoreApp.Controllers
 {
     public class ItemsController : Controller
     {
-        public ItemsController(ApplicationDbContext db)
+        public ItemsController(ApplicationDbContext db, IHostingEnvironment host)
         {
             _db = db;
+            _host = host;
         }
 
         private readonly ApplicationDbContext _db;
-
+        private readonly IHostingEnvironment _host;
         public IActionResult Index()
         {
             IEnumerable<Item> itemsList = _db.Items.Include(c => c.Category).ToList();
@@ -34,12 +36,22 @@ namespace TestCoreApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult New(Item item)
         {
+
             if (item.Name == "100")
             {
                 ModelState.AddModelError("Name", "Name can't equal 100");
             }
             if (ModelState.IsValid)
             {
+                string fileName = string.Empty;
+                if (item.ClientFile != null) 
+                {
+                    string myUpload = Path.Combine(_host.WebRootPath, "images");
+                    fileName = item.ClientFile.FileName;
+                    string fullPath=Path.Combine(myUpload, fileName);
+                    item.ClientFile.CopyTo(new FileStream(fullPath,FileMode.Create));
+                    item.ImagePath = fileName;
+                }
                 _db.Items.Add(item);
                 _db.SaveChanges();
                 TempData["successData"] = "Item has been added successfully";
@@ -91,6 +103,16 @@ namespace TestCoreApp.Controllers
             }
             if (ModelState.IsValid)
             {
+                string fileName = string.Empty;
+                if (item.ClientFile != null|| item.ClientFile!=item.ClientFile)
+                {
+                    
+                    string myUpload = Path.Combine(_host.WebRootPath, "images");
+                    fileName = item.ClientFile.FileName;
+                    string fullPath = Path.Combine(myUpload, fileName);
+                    item.ClientFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    item.ImagePath = fileName;
+                }
                 _db.Items.Update(item);
                 _db.SaveChanges();
                 TempData["successData"] = "Item has been updated successfully";
