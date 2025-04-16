@@ -19,7 +19,7 @@ namespace TestCoreApp.Controllers
         }
         private readonly IHostingEnvironment _host;
         private readonly ApplicationDbContext _db;
-        private readonly IHostingEnvironment _host;
+
         public IActionResult Index()
         {
             IEnumerable<Item> itemsList = _db.Items.Include(c => c.Category).ToList();

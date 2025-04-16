@@ -12,8 +12,8 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250415235636_AddDbImageFileToCategories")]
-    partial class AddDbImageFileToCategories
+    [Migration("20250416124350_AddDbImageFileToCategoriesAndItems")]
+    partial class AddDbImageFileToCategoriesAndItems
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

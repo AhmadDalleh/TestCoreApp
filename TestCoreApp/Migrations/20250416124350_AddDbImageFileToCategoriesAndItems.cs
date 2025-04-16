@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TestCoreApp.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateOnDeleteForCategory : Migration
+    public partial class AddDbImageFileToCategoriesAndItems : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,8 @@ namespace TestCoreApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DbImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +53,8 @@ namespace TestCoreApp.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,13 +69,13 @@ namespace TestCoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "DbImage", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Select Category" },
-                    { 2, "Computers" },
-                    { 3, "Mobiles" },
-                    { 4, "Electric machines" }
+                    { 1, null, "Select Category" },
+                    { 2, null, "Computers" },
+                    { 3, null, "Mobiles" },
+                    { 4, null, "Electric machines" }
                 });
 
             migrationBuilder.CreateIndex(
