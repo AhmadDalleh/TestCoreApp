@@ -29,6 +29,23 @@ namespace TestCoreApp.Data
                   new Category() { Id = 4, Name = "Electric machines" }
                 );
 
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole()
+                {
+                    Id = SeedData.AdminRoleId.ToString(),
+                    Name = "Admin",
+                    NormalizedName = "admin",
+                    ConcurrencyStamp = SeedData.AdminConcurrencyStamp.ToString(),
+                },
+                new IdentityRole()
+                {
+                    Id =SeedData.UserRoleId.ToString(),
+                    Name = "User",
+                    NormalizedName = "user",
+                    ConcurrencyStamp = SeedData.UserConcurrencyStamp.ToString(),
+                }
+
+                );
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TestCoreApp.Models;
 using TestCoreApp.Repository.Base;
 
 namespace TestCoreApp.Controllers
 {
+    [Authorize(Roles = clsRoles.roleAdmin)]
     public class CategoriesController : Controller
     {
         public CategoriesController(IUnitOfWork _myUnit)

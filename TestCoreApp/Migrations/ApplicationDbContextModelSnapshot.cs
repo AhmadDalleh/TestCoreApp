@@ -47,6 +47,22 @@ namespace TestCoreApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5f4d4b1f-e1f1-4f23-98d3-0123456789ab",
+                            ConcurrencyStamp = "a2a1b3c5-d4f6-4e9c-9f23-567890abcdef",
+                            Name = "Admin",
+                            NormalizedName = "admin"
+                        },
+                        new
+                        {
+                            Id = "7a8c6d3b-efcb-48f9-bb27-fedcba098765",
+                            ConcurrencyStamp = "b7f4a6d9-1734-4ff2-bc33-334455667788",
+                            Name = "User",
+                            NormalizedName = "user"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -254,7 +270,7 @@ namespace TestCoreApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("TestCoreApp.Models.Category", b =>
@@ -274,7 +290,7 @@ namespace TestCoreApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -327,7 +343,7 @@ namespace TestCoreApp.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

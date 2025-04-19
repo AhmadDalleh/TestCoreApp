@@ -4,6 +4,8 @@ using TestCoreApp.Data;
 using TestCoreApp.Repository;
 using TestCoreApp.Repository.Base;
 using Microsoft.AspNetCore.Identity;
+using TestCoreApp.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     )
 );
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+   .AddRoles<IdentityRole>() 
+   .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddTransient<IEmailSender, clsEmailConfirm>();
+
 //builder.Services.AddTransient(typeof(IRepository<>), typeof(MainRepository<>));
 builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 
@@ -43,7 +50,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+app.UseEndpoints(endpoints => endpoints.MapRazorPages());
 
 
 

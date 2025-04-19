@@ -12,8 +12,8 @@ using TestCoreApp.Data;
 namespace TestCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250416131959_IdentityData")]
-    partial class IdentityData
+    [Migration("20250418125533_InchialCreateAndAddRoles")]
+    partial class InchialCreateAndAddRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,22 @@ namespace TestCoreApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5f4d4b1f-e1f1-4f23-98d3-0123456789ab",
+                            ConcurrencyStamp = "a2a1b3c5-d4f6-4e9c-9f23-567890abcdef",
+                            Name = "Admin",
+                            NormalizedName = "admin"
+                        },
+                        new
+                        {
+                            Id = "7a8c6d3b-efcb-48f9-bb27-fedcba098765",
+                            ConcurrencyStamp = "b7f4a6d9-1734-4ff2-bc33-334455667788",
+                            Name = "User",
+                            NormalizedName = "user"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
